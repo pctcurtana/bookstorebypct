@@ -9,11 +9,12 @@ include 'includes/config.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Store - Trang chủ</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('assets/images/hero-bg.jpg');
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('assets/bookhome.jpg');
             background-size: cover;
             background-position: center;
             height: 500px;
@@ -26,14 +27,18 @@ include 'includes/config.php';
         .product-card {
             height: 100%;
             border: 1px solid #dee2e6;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 10px;
+            box-shadow: 
+            10px 10px 20px rgba(0, 0, 0, 0.2), 
+            -10px -10px 20px rgba(255, 255, 255, 0.7), 
+            0 5px 15px rgba(0, 0, 0, 0.1);
+            /* overflow: hidden; */
+            transition: transform 0.5s;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: scale(1.05);
+         
         }
 
         .product-image-wrapper {
@@ -111,10 +116,10 @@ include 'includes/config.php';
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-book-reader text-primary "></i> Book Store
+            <a class="navbar-brand text-white" href="#">
+                <i class="fas fa-book-reader text-white"></i> Book Store
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -124,8 +129,8 @@ include 'includes/config.php';
                 
                 </ul>
                 <div class="d-flex">
-                    <a href="sessions/login.php" class="btn btn-outline-primary me-2">Đăng nhập</a>
-                    <a href="sessions/register.php" class="btn btn-primary">Đăng ký</a>
+                    <a href="sessions/login.php" class="btn btn-outline-light me-2">Đăng nhập</a>
+                    <a href="sessions/register.php" class="btn btn-outline-light">Đăng ký</a>
                 </div>
             </div>
         </div>
@@ -182,26 +187,33 @@ include 'includes/config.php';
     <section class="feature-section">
         <div class="container">
             <div class="row g-4">
-                <div class="col-md-4 text-center">
+                <div class="col-md-3 text-center">
                     <div class="feature-icon">
                         <i class="fas fa-shipping-fast"></i>
                     </div>
                     <h5>Giao hàng miễn phí</h5>
                     <p class="text-muted">Cho đơn hàng từ 300.000đ</p>
                 </div>
-                <div class="col-md-4 text-center">
+                <div class="col-md-3 text-center">
                     <div class="feature-icon">
                         <i class="fas fa-undo"></i>
                     </div>
                     <h5>Đổi trả dễ dàng</h5>
                     <p class="text-muted">30 ngày đổi trả miễn phí</p>
                 </div>
-                <div class="col-md-4 text-center">
+                <div class="col-md-3 text-center">
                     <div class="feature-icon">
                         <i class="fas fa-headset"></i>
                     </div>
                     <h5>Hỗ trợ 24/7</h5>
                     <p class="text-muted">Luôn sẵn sàng hỗ trợ bạn</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+                    <h5>Mua 1 tặng 1</h5>
+                    <p class="text-muted">Tính tiền 2</p>
                 </div>
             </div>
         </div>
@@ -232,9 +244,9 @@ include 'includes/config.php';
                 <div class="col-md-4">
                     <h5>Liên hệ</h5>
                     <ul class="list-unstyled text-muted">
-                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Đường ABC, Quận XYZ, TP.HCM</li>
-                        <li><i class="fas fa-phone me-2"></i> (84) 123 456 789</li>
-                        <li><i class="fas fa-envelope me-2"></i> contact@bookstore.com</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Đường Nguyễn Văn Linh, Quận Ninh Kiều, TP.CT</li>
+                        <li><i class="fas fa-phone me-2"></i> (84) 857120003</li>
+                        <li><i class="fas fa-envelope me-2"></i> phamthat2206@gmail.com</li>
                     </ul>
                 </div>
             </div>
@@ -245,6 +257,6 @@ include 'includes/config.php';
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></>
 </body>
 </html>

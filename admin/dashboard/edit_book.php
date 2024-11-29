@@ -118,23 +118,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </a>
                     </div>
                     <div class="card-body">
-                        <div id="alertMessage"></div>
-                        <?php if($success): ?> 
-                            <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    showAlert('<?php echo $success; ?>', 'success');
-                                });
-                            </script>
-                        <?php endif; ?>
-                        
-                        <?php if(isset($errors['db'])): ?>
-                            <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    showAlert('<?php echo $errors['db']; ?>', 'danger');
-                                });
-                            </script>
-                        <?php endif; ?>
-
+                    <div id="alertMessage"></div>
+                    <?php if($success): ?> 
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                showAlert('<?php echo $success; ?>', 'success');
+                            });
+                        </script>
+                    <?php endif; ?>
+                    
+                    <?php if(isset($errors['db'])): ?>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                showAlert('<?php echo $errors['db']; ?>', 'danger');
+                            });
+                        </script>
+                    <?php endif; ?>
                         <form method="POST" enctype="multipart/form-data">
                             <!-- Form fields giống add_book.php nhưng đã điền sẵn giá trị -->
                             <div class="mb-3">

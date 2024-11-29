@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../includes/config.php';
 
 $errors = array();
@@ -55,14 +56,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Nếu không có lỗi, thực hiện đăng ký
     if (empty($errors)) {
-        $hashed_password = md5($password); // Trong thực tế nên dùng password_hash()
+        $hashed_password = md5($password); 
         
         $query = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
         
         if (mysqli_query($conn, $query)) {
-            $success = "Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.";
-            // Xóa dữ liệu form sau khi đăng ký thành công
-            $username = $email = '';
+            $_SESSION['success'] = "Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ."; // Thay đổi này
+            header('location: ../sessions/login.php');
+            exit();
         } else {
             $errors['db'] = "Có lỗi xảy ra: " . mysqli_error($conn);
         }
@@ -75,17 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <title>Đăng ký tài khoản</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .error-message {
-            color: #dc3545;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-        .success-message {
-            color: #198754;
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
 <body>
 
@@ -97,14 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <h3 class="text-center mb-0">Đăng ký tài khoản</h3>
                     </div>
                     <div class="card-body">
-                        <?php if ($success): ?>
-                            <div class="alert alert-success"><?php echo $success; ?></div>
-                        <?php endif; ?>
-
-                        <?php if (isset($errors['db'])): ?>
-                            <div class="alert alert-danger"><?php echo $errors['db']; ?></div>
-                        <?php endif; ?>
-
+                    <div id="alertMessage"></div>
+                    
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" novalidate>
                             <!-- Username field -->
                             <div class="mb-3">

@@ -25,10 +25,7 @@ $products = mysqli_query($conn, $query);
     
 </head>
 <body>
-    <!-- Navbar -->
     
-
-    <!-- Main Content -->
     <div class="container py-4">
         <div id="alertMessage"></div>
     <script>
@@ -44,36 +41,35 @@ $products = mysqli_query($conn, $query);
         <?php endif; ?>
     });
     </script>
-        <h2 class="mb-4">Sách mới nhất</h2>
-        
+        <h2 class="mb-4">Sách mới nhất</h2>    
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-    <?php while($product = mysqli_fetch_assoc($products)): ?>
-    <div class="col">
-        <div class="product-card">
-            <div class="product-image-wrapper">
-                <img src="../../uploads/<?php echo $product['image']; ?>" 
-                     class="product-image" 
-                     alt="<?php echo $product['name']; ?>">
-            </div>
-            <div class="card-body">
-                <h5 class="card-title"><?php echo $product['name']; ?></h5>
-                <p class="card-text text-danger fw-bold"><?php echo number_format($product['price']); ?>đ</p>
-                <div class="button-group">
-                    <a href="product_detail.php?id=<?php echo $product['id']; ?>" 
-                       class="btn btn-primary w-100 mb-2">
-                        Xem chi tiết
-                    </a>
-                    <a href="add_to_cart.php?id=<?php echo $product['id']; ?>" 
-                       class="btn btn-outline-primary w-100">
-                        <i class="fas fa-cart-plus w-1"></i> Thêm vào giỏ
-                    </a>
+            <?php while($product = mysqli_fetch_assoc($products)): ?>
+            <div class="col">
+                <div class="product-card">
+                    <div class="product-image-wrapper">
+                        <img src="../../uploads/<?php echo $product['image']; ?>" 
+                            class="product-image" 
+                            alt="<?php echo $product['name']; ?>">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $product['name']; ?></h5>
+                        <p class="card-text text-danger fw-bold"><?php echo number_format($product['price']); ?>đ</p>
+                        <div class="button-group">
+                            <a href="product_detail.php?id=<?php echo $product['id']; ?>" 
+                            class="btn btn-primary w-100 mb-2">
+                                Xem chi tiết
+                            </a>
+                            <a href="add_to_cart.php?id=<?php echo $product['id']; ?>" 
+                            class="btn btn-outline-primary w-100">
+                                <i class="fas fa-cart-plus w-1"></i> Thêm vào giỏ
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <?php endwhile; ?>
         </div>
-    </div>
-    <?php endwhile; ?>
-</div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>  
 </body>
 </html>
+

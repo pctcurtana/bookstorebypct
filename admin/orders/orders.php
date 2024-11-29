@@ -93,34 +93,37 @@ $orders = mysqli_query($conn, $query);
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-    // Xử lý cập nhật trạng thái đơn hàng
-    document.querySelectorAll('.status-select').forEach(select => {
-        select.addEventListener('change', function() {
-            const orderId = this.dataset.orderId;
-            const status = this.value;
-            
-            fetch('update_order_status.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `order_id=${orderId}&status=${status}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if(data.status === 'success') {
-                    showAlert('Cập nhật trạng thái thành công', 'success');
-                } else {
-                    showAlert('Có lỗi xảy ra: ' + data.message, 'danger');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showAlert('Có lỗi xảy ra khi cập nhật trạng thái', 'danger');
-            });
+    // ... existing code ...
+
+<script>
+document.querySelectorAll('.status-select').forEach(select => {
+    select.addEventListener('change', function() {
+        const orderId = this.dataset.orderId;
+        const status = this.value;
+        
+        fetch('update_order_status.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `order_id=${orderId}&status=${status}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status === 'success') {
+                showAlert('Cập nhật trạng thái thành công!', 'success', 'alertMessage');
+            } else {
+                showAlert('Có lỗi xảy ra: ' + data.message, 'danger', 'alertMessage');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showAlert('Có lỗi xảy ra khi cập nhật trạng thái', 'danger', 'alertMessage');
         });
     });
-    </script>
+});
+</script>
+
+// ... existing code ...
 </body>
 </html>

@@ -128,14 +128,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <title>Đăng nhập</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="../assets/alert.css">
-    <script src="../assets/alert.js"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/alert.css">
+    <script src="../assets/alert.js"></script>
     <style>
-        .error-message {
-            color: #dc3545;
-            font-size: 14px;
-            margin-top: 5px;
-        }
         .card {
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
@@ -158,23 +154,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-5">
+                <div id="alertMessage"></div>
                 <div class="card">
                     <div class="card-header">
                         <h3 class="text-center mb-0">Đăng nhập</h3>
                     </div>
                     <div class="card-body p-4">
-                        <?php if (isset($errors['login'])): ?>
-                            <div class="alert alert-danger"><?php echo $errors['login']; ?></div>
-                        <?php endif; ?>
-                        <?php if(isset($_SESSION['error'])): ?>
-                            <div class="alert alert-danger">
-                                <?php 
-                                    echo $_SESSION['error'];
-                                    unset($_SESSION['error']);
-                                ?>
-                            </div>
-                        <?php endif; ?>
-
+                    <script>
+                    <?php if (isset($errors['login'])): ?>
+                        showAlert('<?php echo $errors['login']; ?>', 'danger', 'alertMessage');
+                    <?php endif; ?>                   
+                    <?php if(isset($_SESSION['error'])): ?>
+                        showAlert('<?php echo $_SESSION['error']; ?>', 'danger', 'alertMessage');
+                        <?php unset($_SESSION['error']); ?>
+                    <?php endif; ?>
+                    <?php if(isset($_SESSION['success'])): ?>
+                        showAlert('<?php echo $_SESSION['success']; ?>', 'success', 'alertMessage');
+                        <?php unset($_SESSION['success']); ?>
+                    <?php endif; ?>
+                    </script>
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" novalidate>
                             <!-- Username field -->
                             <div class="mb-3">
@@ -236,7 +234,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>  
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/your-code.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></div>
 </body>
 </html>

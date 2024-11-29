@@ -1,16 +1,26 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+<style>
         .product-card {
             border: none;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            border-radius: 10px;
+            box-shadow: 
+            10px 10px 20px rgba(0, 0, 0, 0.2), 
+            -10px -10px 20px rgba(255, 255, 255, 0.7), 
+            0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s;
             height: 100%;
             display: flex;
             flex-direction: column;
         }
         .product-card:hover {
-            transform: translateY(-5px);
+            /* transform: translateY(-5px); */
+            transform: scale(1.05);
+        
+        
         }
         
         /* Style cho ảnh sản phẩm */
@@ -75,7 +85,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand" href="/client/home/home.php">
-            <i class="fa-solid fa-store"></i> Cửa hàng sách
+            <i class="fa-solid fa-book-reader"></i> Cửa hàng sách
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -83,17 +93,17 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/client/home/home.php">
+                        <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'home.php') ? 'active' : ''; ?> "  href="/client/home/home.php">
                         <i class="fa-solid fa-house"></i> Trang chủ
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/client/cart/cart.php">
+                        <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'cart.php') ? 'active' : ''; ?> " href="/client/cart/cart.php">
                             <i class="fas fa-shopping-cart"></i> Giỏ hàng
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/client/orders/orders.php">
+                        <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'orders.php') ? 'active' : ''; ?> " href="/client/orders/orders.php">
                         <i class="fa-solid fa-cube"></i> Đơn hàng của tôi
                         </a>
                     </li>
@@ -106,3 +116,8 @@
         </div>
     </nav>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    
+    
+    

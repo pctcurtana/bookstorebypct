@@ -18,6 +18,30 @@ $query = "SELECT c.*, p.name, p.price, p.image, p.stock
 $cart_items = mysqli_query($conn, $query);
 // tính tổng tiền
 $total = 0;
+if(isset($_GET['id']) && isset($_GET['quantity'])) {
+    $product_id = mysqli_real_escape_string($conn, $_GET['id']);
+    $quantity = mysqli_real_escape_string($conn, $_GET['quantity']);
+    $user_id = $_SESSION['user_id'];
+    
+    // Kiểm tra tồn kho
+    $stock_check = mysqli_query($conn, "SELECT stock FROM products WHERE id = '$product_id'");
+    $stock = mysqli_fetch_assoc($stock_check)['stock'];
+    
+    if($quantity <= $stock && $quantity > 0) {
+        $update_query = "UPDATE cart SET quantity = '$quantity' 
+                        WHERE user_id = '$user_id' AND product_id = '$product_id'";
+        if(mysqli_query($conn, $update_query)) {
+            $_SESSION['success'] = "Đã cập nhật số lượng sản phẩm";
+        } else {
+            $_SESSION['error'] = "Không thể cập nhật số lượng";
+        }
+    } else {
+        $_SESSION['error'] = "Số lượng không hợp lệ!";
+    }
+    
+    header('Location: cart.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -144,7 +168,7 @@ $total = 0;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function updateQuantity(productId, quantity) {
-            window.location.href = `../../cart/update_cart.php?id=${productId}&quantity=${quantity}`;
+            window.location.href = `/client/cart/cart.php?id=${productId}&quantity=${quantity}`;
         }
     </script>
 </body>

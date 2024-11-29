@@ -1,15 +1,13 @@
 <?php
 session_start();
-
-// Xóa cookie ghi nhớ đăng nhập
+// xóa cookie remember đn
 if(isset($_COOKIE['remember_user'])) {
     setcookie('remember_user', '', time() - 3600, '/');
 }
 if(isset($_COOKIE['remember_token'])) {
     setcookie('remember_token', '', time() - 3600, '/');
 }
-
-// Xóa token trong database
+// xóa token trong db
 if(isset($_SESSION['user_id'])) {
     include '../../includes/config.php';
     $user_id = $_SESSION['user_id'];
@@ -19,11 +17,9 @@ if(isset($_SESSION['user_id'])) {
         mysqli_query($conn, "UPDATE users SET remember_token = NULL WHERE id = $user_id");
     }
 }
-
-// Xóa session
+// xóa session
 session_destroy();
-
-// Chuyển về trang login
+// chuyển về trang login
 header("Location: ../index.php");
 exit();
 ?>

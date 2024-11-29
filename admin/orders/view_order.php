@@ -1,41 +1,34 @@
 <?php
 session_start();
 include '../../includes/config.php';
-
-// Kiểm tra đăng nhập và quyền admin
+// check đn và quyền ad
 if(!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
     header('location: ../login.php');
     exit();
 }
-
 if(!isset($_GET['id'])) {
     header('location: /admin/orders/orders.php');
     exit();
 }
-
 $order_id = mysqli_real_escape_string($conn, $_GET['id']);
-
-// Lấy thông tin đơn hàng
+// lấy tt đơn
 $query = "SELECT o.*, u.username, u.email 
           FROM orders o 
           JOIN users u ON o.user_id = u.id 
           WHERE o.id = '$order_id'";
 $result = mysqli_query($conn, $query);
 $order = mysqli_fetch_assoc($result);
-
 if(!$order) {
     header('location: /admin/orders/orders.php');
     exit();
 }
-
-// Lấy chi tiết đơn hàng
+// lấy detail đơn
 $query = "SELECT oi.*, p.name, p.image 
           FROM order_items oi 
           JOIN products p ON oi.product_id = p.id 
           WHERE oi.order_id = '$order_id'";
 $items = mysqli_query($conn, $query);
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +44,6 @@ $items = mysqli_query($conn, $query);
                 <i class="fas fa-arrow-left"></i> Quay lại
             </a>
         </div>
-
         <div class="row">
             <div class="col-md-6">
                 <div class="card mb-4">
@@ -66,7 +58,6 @@ $items = mysqli_query($conn, $query);
                     </div>
                 </div>
             </div>
-
             <div class="col-md-6">
                 <div class="card mb-4">
                     <div class="card-header">
@@ -80,7 +71,6 @@ $items = mysqli_query($conn, $query);
                 </div>
             </div>
         </div>
-
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title mb-0">Chi tiết sản phẩm</h5>
@@ -119,7 +109,6 @@ $items = mysqli_query($conn, $query);
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

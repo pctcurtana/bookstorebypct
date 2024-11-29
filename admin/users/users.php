@@ -1,12 +1,12 @@
 <?php
 session_start();
 include '../../includes/config.php';
-// Kiểm tra đăng nhập và quyền admin
+// check đn và quyền ad
 if(!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
     header('location: login.php');
     exit();
 }
-// Lấy danh sách người dùng từ bảng users
+// lấy ds user từ bảng user
 $query = "SELECT * FROM users WHERE is_admin = 0 ORDER BY created_at DESC";
 $users = mysqli_query($conn, $query);
 ?>
@@ -20,13 +20,10 @@ $users = mysqli_query($conn, $query);
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
    <script src="../../assets/alert.js"></script>
 </head>
-<body>
-            
+<body>      
    <div class="container-fluid">
        <div class="row">
-           <!-- Sidebar -->
            <?php include '../../includes/sidebar.php'; ?>
-            <!-- Main Content -->
            <div class="col-md-9 col-lg-10 main-content">
                <div class="d-flex justify-content-between align-items-center mb-4">
                    <h2>Quản lý người dùng</h2>
@@ -40,7 +37,6 @@ $users = mysqli_query($conn, $query);
                 </script>
                 <?php unset($_SESSION['success']); ?>
             <?php endif; ?>
-
             <?php if(isset($_SESSION['error'])): ?>
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
@@ -49,7 +45,6 @@ $users = mysqli_query($conn, $query);
                 </script>
                 <?php unset($_SESSION['error']); ?>
             <?php endif; ?>
-                <!-- Users Table -->
                <div class="table-responsive">
                    <table class="table table-hover">
                        <thead>

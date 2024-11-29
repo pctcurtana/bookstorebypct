@@ -1,5 +1,3 @@
-
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
@@ -19,18 +17,14 @@
         .product-card:hover {
             /* transform: translateY(-5px); */
             transform: scale(1.05);
-        
-        
+
         }
-        
-        /* Style cho ảnh sản phẩm */
         .product-image-wrapper {
             position: relative;
             width: 100%;
-            padding-top: 133%; /* Tỷ lệ 3:4 */
+            padding-top: 133%;
             overflow: hidden;
         }
-        
         .product-image {
             position: absolute;
             top: 0;
@@ -40,15 +34,12 @@
             object-fit: cover;
             object-position: center;
         }
-        
-        /* Style cho phần nội dung */
         .card-body {
             flex: 1;
             display: flex;
             flex-direction: column;
             padding: 1rem;
         }
-        
         .card-title {
             font-size: 1rem;
             font-weight: 500;
@@ -59,20 +50,16 @@
             -webkit-box-orient: vertical;
             margin-bottom: 0.5rem;
         }
-        
         .card-text {
             font-size: 1.1rem;
             margin-bottom: 1rem;
         }
-
         .button-group {
             margin-top: auto;
         }
-        
         .btn:last-child {
             margin-bottom: 0;
         }
-
         .cart-item-image {
             width: 100px;
             height: 150px;

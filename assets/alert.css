@@ -8,7 +8,6 @@
     max-width: 500px;
     width: 90%;
 }
-
 .custom-alert {
     display: flex;
     align-items: center;
@@ -21,9 +20,6 @@
     transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     margin-bottom: 1rem;
 }
-
-/* Success Alert */
-
 .alert-success .alert-message::before {
     content: "\f00c";
     font-family: "Font Awesome 5 Free";
@@ -31,12 +27,9 @@
     color: #28a745;
     margin-right: 10px;
 }
-
-/* Danger Alert */
 .alert-danger {
     border-left: 5px solid #dc3545;
 }
-
 .alert-danger .alert-message::before {
     content: "\f071";
     font-family: "Font Awesome 5 Free";
@@ -44,8 +37,6 @@
     color: #dc3545;
     margin-right: 10px;
 }
-
-/* Alert Message Style */
 .alert-message {
     flex-grow: 1;
     font-size: 0.95rem;
@@ -53,8 +44,6 @@
     display: flex;
     align-items: center;
 }
-
-/* Close Button */
 .custom-alert .btn-close {
     padding: 8px;
     margin: -8px -8px -8px 8px;
@@ -71,25 +60,19 @@
 .custom-alert .btn-close:hover {
     opacity: 1;
 }
-
-/* Animation Classes */
 .show-alert {
     transform: translateY(0);
     opacity: 1;
 }
-
 .hide-alert {
     transform: translateY(-100%);
     opacity: 0;
 }
-
-/* Responsive Design */
 @media (max-width: 576px) {
     #alertMessage {
         width: 95%;
         min-width: auto;
-    }
-    
+    }    
     .custom-alert {
         padding: 12px 15px;
     }

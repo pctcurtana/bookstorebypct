@@ -1,18 +1,15 @@
 <?php
 session_start();
 include '../../includes/config.php';
-
-// Kiểm tra đăng nhập và quyền admin
+// chẹck đăng nhap và quyền ad
 if(!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
     header('location: ../login.php');
     exit();
 }
-
 $errors = array();
 $success = '';
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Lấy dữ liệu từ form
+    // lấy dữ lịu từ form
     $name = mysqli_real_escape_string($conn, trim($_POST['name']));
     $description = mysqli_real_escape_string($conn, trim($_POST['description']));
     $price = floatval($_POST['price']);
@@ -20,8 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $publisher = mysqli_real_escape_string($conn, trim($_POST['publisher']));
     $category = mysqli_real_escape_string($conn, trim($_POST['category']));
     $stock = intval($_POST['stock']);
-
-    // Validate
+    // check
     if(empty($name)) {
         $errors['name'] = "Vui lòng nhập tên sách";
     }
@@ -35,35 +31,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['image'] = "Vui lòng chọn ảnh sách";
     }
 
-    // Xử lý upload ảnh
+    // xử lí up ảh
     if(empty($errors)) {
         $file = $_FILES['image'];
         $file_name = $file['name'];
         $file_tmp = $file['tmp_name'];
-        $file_type = $file['type'];
-        
-        // Kiểm tra loại file
+        $file_type = $file['type'];      
+        // check loại file
         $allowed_types = array('image/jpeg', 'image/png', 'image/gif');
         if(!in_array($file_type, $allowed_types)) {
             $errors['image'] = "Chỉ chấp nhận file ảnh (JPG, PNG, GIF)";
         } else {
-            // Tạo tên file mới để tránh trùng lặp
+            // tạo tên file mới tránh trùg
             $new_file_name = uniqid() . '-' . $file_name;
-            $upload_path = '../../uploads/' . $new_file_name;
-            
-            // Upload file
+            $upload_path = '../../uploads/' . $new_file_name;           
+            // up file
             if(move_uploaded_file($file_tmp, $upload_path)) {
-                // Thêm sách vào database
+                // thêm sách dô db
                 $query = "INSERT INTO products (name, description, price, image, author, publisher, category, stock) 
-                         VALUES ('$name', '$description', $price, '$new_file_name', '$author', '$publisher', '$category', $stock)";
-                
+                         VALUES ('$name', '$description', $price, '$new_file_name', '$author', '$publisher', '$category', $stock)";              
                 if(mysqli_query($conn, $query)) {
                     $success = "Thêm sách thành công!";
-                    // Reset form
+                    // reset tt form
                     $_POST = array();
                 } else {
                     $errors['db'] = "Lỗi: " . mysqli_error($conn);
-                    // Xóa file ảnh nếu thêm DB thất bại
+                    // xoá ảnh nếu add fail
                     unlink($upload_path);
                 }
             } else {
@@ -73,7 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,8 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     showAlert('<?php echo $success; ?>', 'success');
                                 });
                             </script>
-                        <?php endif; ?>
-                        
+                        <?php endif; ?>                     
                         <?php if(isset($errors['db'])): ?>
                             <script>
                                 document.addEventListener('DOMContentLoaded', function() {
@@ -120,12 +111,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <div class="invalid-feedback"><?php echo $errors['name']; ?></div>
                                 <?php endif; ?>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label">Mô tả</label>
                                 <textarea name="description" class="form-control" rows="4"><?php echo isset($_POST['description']) ? $_POST['description'] : ''; ?></textarea>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label">Giá bán *</label>
                                 <input type="number" name="price" class="form-control <?php echo isset($errors['price']) ? 'is-invalid' : ''; ?>"
@@ -134,7 +123,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <div class="invalid-feedback"><?php echo $errors['price']; ?></div>
                                 <?php endif; ?>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label">Ảnh sách *</label>
                                 <input type="file" name="image" class="form-control <?php echo isset($errors['image']) ? 'is-invalid' : ''; ?>">
@@ -142,7 +130,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <div class="invalid-feedback"><?php echo $errors['image']; ?></div>
                                 <?php endif; ?>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label">Tác giả *</label>
                                 <input type="text" name="author" class="form-control <?php echo isset($errors['author']) ? 'is-invalid' : ''; ?>"
@@ -151,13 +138,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <div class="invalid-feedback"><?php echo $errors['author']; ?></div>
                                 <?php endif; ?>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label">Nhà xuất bản</label>
                                 <input type="text" name="publisher" class="form-control"
                                        value="<?php echo isset($_POST['publisher']) ? $_POST['publisher'] : ''; ?>">
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label">Thể loại</label>
                                 <select name="category" class="form-control">
@@ -169,12 +154,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <option value="Giáo khoa">Giáo khoa</option>
                                 </select>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label">Số lượng trong kho</label>
                                 <input type="number" name="stock" class="form-control" value="0">
                             </div>
-
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-primary">Thêm sách</button>
                             </div>
@@ -184,7 +167,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

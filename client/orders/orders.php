@@ -3,13 +3,13 @@ session_start();
 include '../../includes/config.php';
 include '../../includes/header.php';
 
-// Kiểm tra đăng nhập
+// check đn
 if(!isset($_SESSION['user_id']) || $_SESSION['is_admin']) {
    header('location: ../../sessions/login.php');
    exit();
 }
 $user_id = $_SESSION['user_id'];
-// Lấy danh sách đơn hàng
+// lấy ds đơn hàng
 $query = "SELECT * FROM orders WHERE user_id = $user_id ORDER BY created_at ";
 $result = mysqli_query($conn, $query);
 ?>

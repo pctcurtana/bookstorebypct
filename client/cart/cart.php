@@ -4,25 +4,21 @@ include '../../includes/config.php';
 include '../../includes/header.php';
 
 
-// Kiểm tra đăng nhập và không phải admin
+// check đn và quyền user
 if(!isset($_SESSION['user_id']) || $_SESSION['is_admin']) {
     header('location: ../../sessions/login.php');
     exit();
 }
-
 $user_id = $_SESSION['user_id'];
-
-// Lấy sách trong giỏ hàng
+// lấy sách trong cart
 $query = "SELECT c.*, p.name, p.price, p.image, p.stock 
           FROM cart c 
           JOIN products p ON c.product_id = p.id 
           WHERE c.user_id = $user_id";
 $cart_items = mysqli_query($conn, $query);
-
-// Tính tổng tiền
+// tính tổng tiền
 $total = 0;
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,8 +118,7 @@ $total = 0;
                                 </tr>
                             </tfoot>
                         </table>
-                    </div>
-                    
+                    </div>                    
                     <div class="d-flex justify-content-end mt-3">
                         <a href="/client/home/home.php" class="btn btn-outline-primary me-2">
                             <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm

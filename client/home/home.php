@@ -3,17 +3,15 @@ session_start();
 include '../../includes/config.php';
 include '../../includes/header.php';
 
-// Kiểm tra đăng nhập và không phải admin
+// check đn và phải user k
 if(!isset($_SESSION['user_id']) || $_SESSION['is_admin']) {
     header('location: ../../sessions/login.php');
     exit();
 }
-
-// Lấy sách từ database
+// lấy sách từ db
 $query = "SELECT * FROM products ORDER BY created_at DESC";
 $products = mysqli_query($conn, $query);
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,8 +22,7 @@ $products = mysqli_query($conn, $query);
     <script src="../../assets/alert.js"></script>
     
 </head>
-<body>
-    
+<body>  
     <div class="container py-4">
         <div id="alertMessage"></div>
     <script>

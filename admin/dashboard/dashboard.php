@@ -1,17 +1,17 @@
 <?php
 session_start();
 include '../../includes/config.php';
-// Kiểm tra đăng nhập và quyền admin
+// check đăg nhập và quyền ad
 if(!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
     header('location: ../sessions/login.php');
     exit();
 }
-// Lấy thống kê
+// lấy t.kê
 $total_books = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM products"))['count'];
 $total_orders = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM orders"))['count'];
 $total_users = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as count FROM users"))['count'];
 $total_revenue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(total_amount) as total FROM orders"))['total'];
-// Lấy danh sách sách mới nhất
+// lấy ds sách mới nhất
 $latest_books = mysqli_query($conn, "SELECT * FROM products ORDER BY created_at");
 ?>
 <!DOCTYPE html>
@@ -22,15 +22,11 @@ $latest_books = mysqli_query($conn, "SELECT * FROM products ORDER BY created_at"
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/alert.css">
     <script src="../../assets/alert.js"></script>
-
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
             <?php include '../../includes/sidebar.php'; ?>
-
-            <!-- Main Content -->
             <div class="col-md-9 col-lg-10 main-content">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2>Dashboard</h2>
@@ -39,7 +35,6 @@ $latest_books = mysqli_query($conn, "SELECT * FROM products ORDER BY created_at"
                     </div>
                 </div>
                 <div id="alertMessage"></div>
-                <!-- Statistics Cards -->
                 <div class="row mb-4">
                     <div class="col-md-3">
                         <div class="stat-card bg-primary text-white">
@@ -66,8 +61,6 @@ $latest_books = mysqli_query($conn, "SELECT * FROM products ORDER BY created_at"
                         </div>
                     </div>
                 </div>
-
-                <!-- Latest Books Table -->
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
                     <?php if(isset($_SESSION['success'])): ?>
@@ -80,8 +73,7 @@ $latest_books = mysqli_query($conn, "SELECT * FROM products ORDER BY created_at"
                         <?php unset($_SESSION['error']); ?>
                     <?php endif; ?>
                 });
-                </script>
-                
+                </script>                
                 <div class="table-responsive">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4>Sách mới nhất</h4>
@@ -123,7 +115,6 @@ $latest_books = mysqli_query($conn, "SELECT * FROM products ORDER BY created_at"
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

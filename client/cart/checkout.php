@@ -1,66 +1,58 @@
 <?php
 session_start();
 include '../../includes/config.php';
-// Kiểm tra đăng nhập
+// check phải user k
 if(!isset($_SESSION['user_id']) || $_SESSION['is_admin']) {
    header('location: ../../sessions/login.php');
    exit();
 }
 $user_id = $_SESSION['user_id'];
-// Lấy thông tin giỏ hàng
+// lấy tt giỏ hàng
 $cart_query = "SELECT c.*, p.name, p.price, p.stock, p.image 
               FROM cart c 
               JOIN products p ON c.product_id = p.id 
               WHERE c.user_id = $user_id";
 $cart_result = mysqli_query($conn, $cart_query);
-// Tính tổng tiền
+// tính tổng tiền
 $total = 0;
 $cart_items = [];
-
 while($item = mysqli_fetch_assoc($cart_result)) {
    $total += $item['price'] * $item['quantity'];
    $cart_items[] = $item;
 }
-// Xử lý đặt hàng
+// xử lý đặt hàng
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $address = mysqli_real_escape_string($conn, $_POST['address']);
-    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
-    
+    $phone = mysqli_real_escape_string($conn, $_POST['phone']);  
     if(empty($address) || empty($phone)) {
         $_SESSION['error'] = "Vui lòng điền đầy đủ thông tin";
     } else {
         mysqli_begin_transaction($conn);
         try {
-            // Tính lại tổng tiền trước khi lưu vào database
+            // tính tổng tiền trước khi save vào db
             $total_amount = 0;
             foreach($cart_items as $item) {
                 $total_amount += $item['price'] * $item['quantity'];
-            }
-            
-            // Tạo đơn hàng mới với tổng tiền đã tính
+            }          
+            // tạo đơn mới với tổng tiền đã tính
             $order_query = "INSERT INTO orders (user_id, total_amount, address, phone) 
                           VALUES ($user_id, $total_amount, '$address', '$phone')";
             mysqli_query($conn, $order_query);
-            $order_id = mysqli_insert_id($conn);
-            
-            // Thêm chi tiết đơn hàng
+            $order_id = mysqli_insert_id($conn);        
+            // add detail đơn hàng
             foreach($cart_items as $item) {
                 $product_id = $item['product_id'];
                 $quantity = $item['quantity'];
-                $price = $item['price'];
-                
+                $price = $item['price'];              
                 mysqli_query($conn, "INSERT INTO order_items (order_id, product_id, quantity, price) 
                                    VALUES ($order_id, $product_id, $quantity, $price)");
-            }
-            
-            // Xóa giỏ hàng
-            mysqli_query($conn, "DELETE FROM cart WHERE user_id = $user_id");
-            
+            }           
+            // xoá hàng trong giỏ
+            mysqli_query($conn, "DELETE FROM cart WHERE user_id = $user_id");            
             mysqli_commit($conn);
             $_SESSION['success'] = "Đặt hàng thành công!";
             header('location: /client/orders/orders.php');
-            exit();
-            
+            exit();           
         } catch(Exception $e) {
             mysqli_rollback($conn);
             $_SESSION['error'] = "Có lỗi xảy ra: " . $e->getMessage();
@@ -76,8 +68,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
    <div class="container py-5">
-       <h2 class="mb-4">Thanh toán</h2>
-       
+       <h2 class="mb-4">Thanh toán</h2>      
        <?php if(isset($_SESSION['error'])): ?>
            <div class="alert alert-danger">
                <?php 
@@ -123,8 +114,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                        </table>
                    </div>
                </div>
-           </div>
-           
+           </div>           
            <div class="col-md-4">
                <div class="card">
                    <div class="card-body">

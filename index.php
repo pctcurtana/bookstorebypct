@@ -2,14 +2,12 @@
 session_start();
 include 'includes/config.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Store - Trang chủ</title>
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -23,7 +21,6 @@ include 'includes/config.php';
             color: white;
             margin-bottom: 2rem;
         }
-
         .product-card {
             height: 100%;
             border: 1px solid #dee2e6;
@@ -35,18 +32,15 @@ include 'includes/config.php';
             /* overflow: hidden; */
             transition: transform 0.5s;
         }
-
         .product-card:hover {
             transform: scale(1.05);
          
         }
-
         .product-image-wrapper {
             position: relative;
-            padding-top: 100%; /* Tỷ lệ 1:1 */
+            padding-top: 100%;
             overflow: hidden;
         }
-
         .product-image {
             position: absolute;
             top: 0;
@@ -55,11 +49,9 @@ include 'includes/config.php';
             height: 100%;
             object-fit: cover;
         }
-
         .card-body {
             padding: 1rem;
         }
-
         .card-title {
             font-size: 1rem;
             margin-bottom: 0.5rem;
@@ -69,17 +61,14 @@ include 'includes/config.php';
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
         }
-
         .button-group {
             margin-top: 1rem;
         }
-
         .feature-section {
             background-color: #f8f9fa;
             padding: 4rem 0;
             margin: 2rem 0;
         }
-
         .feature-icon {
             width: 60px;
             height: 60px;
@@ -90,32 +79,27 @@ include 'includes/config.php';
             justify-content: center;
             margin: 0 auto 1rem;
         }
-
         .feature-icon i {
             font-size: 24px;
             color: #0d6efd;
         }
-
         footer {
             background-color: #212529;
             color: white;
             padding: 3rem 0 1rem;
             margin-top: 3rem;
         }
-
         .social-links a {
             color: white;
             margin-right: 1rem;
             font-size: 1.2rem;
         }
-
         .social-links a:hover {
             color: #0d6efd;
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-primary shadow-sm">
         <div class="container">
             <a class="navbar-brand text-white" href="#">
@@ -135,8 +119,6 @@ include 'includes/config.php';
             </div>
         </div>
     </nav>
-
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="row">
@@ -148,8 +130,6 @@ include 'includes/config.php';
             </div>
         </div>
     </section>
-
-    <!-- Featured Books -->
     <div class="container">
         <h2 class="mb-4">Sách nổi bật</h2>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
@@ -182,8 +162,6 @@ include 'includes/config.php';
             <?php endwhile; ?>
         </div>
     </div>
-
-    <!-- Features Section -->
     <section class="feature-section">
         <div class="container">
             <div class="row g-4">
@@ -218,8 +196,6 @@ include 'includes/config.php';
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="row g-4">
@@ -256,7 +232,6 @@ include 'includes/config.php';
             </div>
         </div>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -6,7 +6,6 @@ if(!isset($_SESSION['user_id']) || $_SESSION['is_admin']) {
    header('location: ../../sessions/login.php');
    exit();
 }
-include '../../includes/header.php';
 
 $user_id = $_SESSION['user_id'];
 // lấy tt giỏ hàng
@@ -61,6 +60,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
+include '../../includes/header.php';
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -77,15 +78,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <i class="fas fa-arrow-left"></i> Quay lại trang trước
            </a>
        </p>
-            
-       <?php if(isset($_SESSION['error'])): ?>
-           <div class="alert alert-danger">
-               <?php 
-                   echo $_SESSION['error'];
-                   unset($_SESSION['error']);
-               ?>
-           </div>
-       <?php endif; ?>
         <div class="row">
            <div class="col-md-8">
                <div class="card mb-4">

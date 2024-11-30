@@ -188,10 +188,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="text-center mt-4">
                     <p class="text-muted">Hoặc đăng nhập với</p>
                     <div class="d-flex justify-content-center gap-2">
-                        <button class="btn btn-outline-primary">
+                        <button onclick="showAlert('Sao làm biến quá vậy. Tự đăng ký đi.', 'danger')" class="btn btn-outline-primary">
                             <i class="fab fa-facebook"></i> Facebook
                         </button>
-                        <button class="btn btn-outline-danger">
+                        <button onclick="showAlert('Chức năng không có làm mà bấm cái gì.', 'danger')" class="btn btn-outline-danger">
                             <i class="fab fa-google"></i> Google
                         </button>
                     </div>

@@ -18,6 +18,7 @@ $latest_books = mysqli_query($conn, "SELECT * FROM products ORDER BY created_at"
 <html>
 <head>
     <title>Admin Dashboard - Quản lý sách</title>
+    <link rel="icon" href="/assets/headicon.png " type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/alert.css">
@@ -88,6 +89,7 @@ $latest_books = mysqli_query($conn, "SELECT * FROM products ORDER BY created_at"
                                 <th>Tên sách</th>
                                 <th>Giá</th>
                                 <th>Ngày thêm</th>
+                                <th>Số lượng</th>
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
@@ -98,6 +100,7 @@ $latest_books = mysqli_query($conn, "SELECT * FROM products ORDER BY created_at"
                                 <td><?php echo $book['name']; ?></td>
                                 <td><?php echo number_format($book['price']); ?>đ</td>
                                 <td><?php echo date('d/m/Y', strtotime($book['created_at'])); ?></td>
+                                <td><?php echo $book['stock']; ?></td>
                                 <td>
                                     <a href="edit_book.php?id=<?php echo $book['id']; ?>" class="btn btn-sm btn-warning">
                                         <i class="fas fa-edit"></i>

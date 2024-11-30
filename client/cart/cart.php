@@ -67,19 +67,15 @@ include '../../includes/header.php';
     <div class="container py-4">
         <h2 class="mb-4">Giỏ hàng của bạn</h2>
         <div id="alertMessage"></div>
-        <?php if(isset($_SESSION['error'])): ?>
-            <div class="alert alert-danger">
-                <?php 
-                    echo $_SESSION['error'];
-                    unset($_SESSION['error']);
-                ?>
-            </div>
-        <?php endif; ?>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
             <?php if(isset($_SESSION['success'])): ?>
                 showAlert(`<?php echo str_replace("'", "\\'", $_SESSION['success']); ?>`, 'success');
                 <?php unset($_SESSION['success']); ?>
+            <?php endif; ?>
+            <?php if(isset($_SESSION['error'])): ?>
+                showAlert(`<?php echo str_replace("'", "\\'", $_SESSION['error']); ?>`, 'danger');
+                <?php unset($_SESSION['error']); ?>
             <?php endif; ?>
         });
         </script>

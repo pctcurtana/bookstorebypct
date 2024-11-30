@@ -17,6 +17,7 @@ $orders = mysqli_query($conn, $query);
 <html>
 <head>
     <title>Quản lý đơn hàng - Admin</title>
+    <link rel="icon" href="/assets/headicon.png " type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/alert.css">
@@ -93,8 +94,7 @@ $orders = mysqli_query($conn, $query);
 document.querySelectorAll('.status-select').forEach(select => {
     select.addEventListener('change', function() {
         const orderId = this.dataset.orderId;
-        const status = this.value;
-        
+        const status = this.value;       
         fetch('update_order_status.php', {
             method: 'POST',
             headers: {
@@ -102,12 +102,18 @@ document.querySelectorAll('.status-select').forEach(select => {
             },
             body: `order_id=${orderId}&status=${status}`
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
+            console.log('Response:', data); // Để debug
             if(data.status === 'success') {
                 showAlert('Cập nhật trạng thái thành công!', 'success', 'alertMessage');
             } else {
-                showAlert('Có lỗi xảy ra: ' + data.message, 'danger', 'alertMessage');
+                showAlert(data.message || 'Có lỗi xảy ra', 'danger', 'alertMessage');
             }
         })
         .catch(error => {

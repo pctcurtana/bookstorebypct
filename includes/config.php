@@ -1,5 +1,3 @@
-<link rel="icon" href="/assets/headicon.png " type="image/x-icon">
-
 <?php
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');

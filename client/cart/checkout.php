@@ -30,26 +30,40 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         mysqli_begin_transaction($conn);
         try {
+            // Kiểm tra lại số lượng tồn trước khi đặt hàng
+            foreach($cart_items as $item) {
+                $stock_check = mysqli_query($conn, "SELECT stock FROM products WHERE id = {$item['product_id']}");
+                $current_stock = mysqli_fetch_assoc($stock_check)['stock'];
+                
+                if($current_stock < $item['quantity']) {
+                    throw new Exception("Sản phẩm '{$item['name']}' không đủ số lượng trong kho");
+                }
+            }           
             // tính tổng tiền trước khi save vào db
             $total_amount = 0;
             foreach($cart_items as $item) {
                 $total_amount += $item['price'] * $item['quantity'];
-            }          
+            }                     
             // tạo đơn mới với tổng tiền đã tính
             $order_query = "INSERT INTO orders (user_id, total_amount, address, phone) 
                           VALUES ($user_id, $total_amount, '$address', '$phone')";
             mysqli_query($conn, $order_query);
-            $order_id = mysqli_insert_id($conn);        
-            // add detail đơn hàng
+            $order_id = mysqli_insert_id($conn);                   
+            // add detail đơn hàng và cập nhật số lượng tồn
             foreach($cart_items as $item) {
                 $product_id = $item['product_id'];
                 $quantity = $item['quantity'];
-                $price = $item['price'];              
+                $price = $item['price'];                    
+                // add detail đơn hàng
                 mysqli_query($conn, "INSERT INTO order_items (order_id, product_id, quantity, price) 
-                                   VALUES ($order_id, $product_id, $quantity, $price)");
-            }           
+                                   VALUES ($order_id, $product_id, $quantity, $price)");               
+                // update sl tồn kho
+                mysqli_query($conn, "UPDATE products 
+                                   SET stock = stock - $quantity 
+                                   WHERE id = $product_id");
+            }               
             // xoá hàng trong giỏ
-            mysqli_query($conn, "DELETE FROM cart WHERE user_id = $user_id");            
+            mysqli_query($conn, "DELETE FROM cart WHERE user_id = $user_id");                      
             mysqli_commit($conn);
             $_SESSION['success'] = "Đặt hàng thành công!";
             header('location: /client/orders/orders.php');

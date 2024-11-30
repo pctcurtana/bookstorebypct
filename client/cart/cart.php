@@ -1,7 +1,6 @@
 <?php
 session_start();
 include '../../includes/config.php';
-include '../../includes/header.php';
 
 
 // check đn và quyền user
@@ -38,10 +37,11 @@ if(isset($_GET['id']) && isset($_GET['quantity'])) {
     } else {
         $_SESSION['error'] = "Số lượng không hợp lệ!";
     }
-    
     header('Location: cart.php');
     exit();
 }
+include '../../includes/header.php';
+
 ?>
 <!DOCTYPE html>
 <html>

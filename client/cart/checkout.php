@@ -6,6 +6,8 @@ if(!isset($_SESSION['user_id']) || $_SESSION['is_admin']) {
    header('location: ../../sessions/login.php');
    exit();
 }
+include '../../includes/header.php';
+
 $user_id = $_SESSION['user_id'];
 // lấy tt giỏ hàng
 $cart_query = "SELECT c.*, p.name, p.price, p.stock, p.image 
@@ -69,7 +71,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
    <div class="container py-5">
-       <h2 class="mb-4">Thanh toán</h2>      
+       <h2>Thanh toán</h2>
+       <p class="d-flex justify-content-end">
+            <a href="/client/cart/cart.php" class="btn btn-outline-primary me-2">
+                <i class="fas fa-arrow-left"></i> Quay lại trang trước
+           </a>
+       </p>
+            
        <?php if(isset($_SESSION['error'])): ?>
            <div class="alert alert-danger">
                <?php 
@@ -134,6 +142,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                    </div>
                </div>
            </div>
+           
        </div>
    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

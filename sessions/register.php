@@ -63,12 +63,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <title>Đăng ký tài khoản</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container py-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6 px-3 px-sm-0">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="text-center mb-0">Đăng ký tài khoản</h3>
